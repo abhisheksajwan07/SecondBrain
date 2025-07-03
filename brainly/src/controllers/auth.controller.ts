@@ -6,7 +6,7 @@ export const signupUser = async (
   res: Response
 ): Promise<void> => {
   try {
-    // console.log("BODY:", req.body); 
+    // console.log("BODY:", req.body);
     const { username, password } = req.body;
     const user = new User({ username, password });
     const savedUser = await user.save();
@@ -33,7 +33,13 @@ export const signInUser = async (
   res: Response
 ): Promise<void> => {
   try {
+    // console.log("BODY RECEIVED:", req.body);
+    // console.log("HEADERS:", req.headers);
+    // console.log("BODY TYPE:", typeof req.body);
+    // console.log("BODY RAW:", req.body);
+
     const { username, password } = req.body;
+
     const existingUser = await User.findOne({ username });
     if (!existingUser) {
       res.status(403).json({

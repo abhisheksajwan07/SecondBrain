@@ -8,6 +8,7 @@ export const createContent = async (
   res: Response
 ): Promise<void> => {
   try {
+    console.log("body:",req.body);
     const { title, link, type } = req.body;
     const userId = req.user?._id;
     const newContent = await Content.create({
