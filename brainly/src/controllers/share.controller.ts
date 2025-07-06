@@ -11,13 +11,29 @@ export const shareContent = async (
   try {
     const { share } = req.body;
     if (share) {
-      const shareLink = await Link.create({
-        hash: generateHash(10),
+      const shareLink = await Link.findOne({
         userId: req.user?._id,
+      });
+      if (shareLink) {
+        res.json({
+          hash: shareLink.hash,
+        });
+        return;
+      }
+      const hash = generateHash(10);
+      await Link.create({
+        userId: req.user?._id,
+        hash: hash,
+      });
+      res.json({
+        message: "/share/" + hash,
       });
     } else {
       await Link.deleteOne({
         userId: req.user?._id,
+      });
+      res.json({
+        message: "removed link",
       });
     }
   } catch (err) {
