@@ -40,3 +40,5 @@ userSchema.pre("save", async function (next) {
   next();
 });
 export const User: Model<Iuser> = model<Iuser>("User", userSchema);
+
+// model<Iuser>(...) fucntion to create model
