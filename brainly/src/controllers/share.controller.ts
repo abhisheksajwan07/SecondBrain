@@ -70,7 +70,7 @@ export const getShareContent = async (
     });
     // give us the user info
     const user = await User.findOne({
-      userId,
+      _id: userId,
     });
     if (!user) {
       res.status(411).json({
