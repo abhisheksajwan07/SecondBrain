@@ -8,11 +8,12 @@ interface ButtonProps {
   onClick?: () => void;
   endIcon?: ReactElement;
   startIcon?: ReactElement;
-  className?:string;
+  className?: string;
 }
 const variantStyles = {
-  primary: "bg-purple-600 text-white",
-  secondary: "bg-purple-200 text-purple-400",
+  primary: "bg-indigo-600 text-white hover:bg-indigo-700 transition-colors",
+  secondary:
+    "bg-white border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition-colors",
   ghost: "bg-transparent text-gray-700 hover:text-blue-600",
 };
 const sizeStyles = {
@@ -28,7 +29,7 @@ export const Button = ({
   onClick,
   endIcon,
   startIcon,
-  className="",
+  className = "",
   ...props
 }: ButtonProps) => {
   const ghostHover =

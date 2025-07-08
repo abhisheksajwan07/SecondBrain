@@ -8,8 +8,8 @@ import { FaHashtag } from "react-icons/fa6";
 import { Button } from "./ui/button";
 const SideNav = () => {
   return (
-    <div className="w-[15%] h-full border-r-4   p-5">
-      <h1 className="text-center text-3xl flex items-center justify-center gap-2">
+    <div className="w-[15%] h-full border-r-4  p-5">
+      <h1 className="text-center text-3xl  flex items-center justify-center gap-2">
         <LuBrain className="w-10 h-10 text-blue-500" />
         <span>Second Brain</span>
       </h1>
