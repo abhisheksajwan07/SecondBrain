@@ -24,7 +24,7 @@ const cards: { title: string; link: string; type: "youtube" | "twitter" }[] = [
 const Home = () => {
   return (
     <div className="flex overflow-hidden h-screen">
-      <CreateContentModal open={true} onClose={() => {}}/>
+      <CreateContentModal open={true} onClose={() => {}} />
       <SideNav />
       <div className="w-[85%] h-full overflow-x-hidden overflow-auto ">
         <Top />
@@ -38,7 +38,6 @@ const Home = () => {
             />
           ))}
         </div>
-        
       </div>
     </div>
   );
