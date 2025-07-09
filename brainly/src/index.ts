@@ -9,12 +9,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 // const MONGO_URI = process.env.MONGO_URI;
-
+import cors from "cors";
 app.use(express.json());
-
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", contentRoutes);
-app.use("/api/v1",shareRoutes);
+app.use("/api/v1", shareRoutes);
 const startServer = async () => {
   await connectDB();
 
