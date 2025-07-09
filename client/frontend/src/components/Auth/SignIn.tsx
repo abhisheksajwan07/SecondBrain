@@ -20,14 +20,14 @@ const Signin = () => {
         <input
           type="email"
           placeholder="Email"
-          className="w-full border px-4 py-2 rounded"
+          className="w-full text-xl border px-4 py-2 rounded"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="w-full border px-4 py-2 rounded"
+          className="w-full text-xl border px-4 py-2 rounded"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
