@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit:()=>void;
+  onSubmit: (newCard: { title: string; link: string; type: string }) => void;
 }
 
 export function CreateContentModal({ isOpen, onClose,onSubmit }: ModalProps) {

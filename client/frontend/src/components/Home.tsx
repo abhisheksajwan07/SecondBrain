@@ -22,10 +22,13 @@ import Top from "./Top";
 //     type: "youtube",
 //   },
 // ];
+type CardType = {
+  title: string;
+  link: string;
+  type: string; 
+};
 const Home = () => {
-  const [cards, setCards] = useState<
-    { title: string; link: string; type: "youtube" | "twitter" }[]
-  >([
+  const [cards, setCards] = useState<CardType[]>([
     {
       title: "React Tutorial",
       link: "https://www.youtube.com/watch?v=dGcsHMXbSOA",

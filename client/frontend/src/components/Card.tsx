@@ -1,12 +1,25 @@
 import ReactPlayer from "react-player";
 import { ShareIcon } from "./icons/ShareIcon";
+import { useEffect } from "react";
+
+declare global {
+  interface Window {
+    twttr?: any;
+  }
+}
 
 interface CardProps {
   title: string;
   link: string;
-  type: "twitter" | "youtube";
+  type: string;
 }
+
 export const Card = ({ title, link, type }: CardProps) => {
+  useEffect(() => {
+  if  (type==="twitter" && window.twttr && window.twttr.widgets) {
+    window.twttr.widgets.load();
+  }
+}, [link,type]);
   return (
     <div className="p-5 bg-white rounded-xl border border-gray-200 shadow-md max-w-lg w-full">
       <div className="flex justify-between items-center mb-4">
