@@ -4,7 +4,11 @@ const contentSchema = new Schema(
     title: String,
     link: String,
     tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
-    type: String,
+    type: {
+      type: String,
+      enum: ["youtube", "twitter", "document", "link", "other"], // ✅ enum added
+      required: true,
+    },
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   },
   { timestamps: true }
