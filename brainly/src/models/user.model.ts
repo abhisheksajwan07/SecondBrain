@@ -2,14 +2,14 @@ import mongoose, { Model, model, Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 interface Iuser extends Document {
-  username: string;
+  emailId: string;
   password: string;
   getJWT(): Promise<string>;
   validatePassword(password: string): Promise<boolean>;
 }
 const userSchema = new Schema<Iuser>(
   {
-    username: { type: String, unique: true },
+    emailId: { type: String, unique: true },
     password: String,
   },
   { timestamps: true }
