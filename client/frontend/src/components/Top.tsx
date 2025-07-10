@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { PlusIcon } from "./icons/PlusIcon";
 import { ShareIcon } from "./icons/ShareIcon";
 import { Button } from "./ui/button";
-const Top = () => {
+const Top = ({onAddContentClick}:{onAddContentClick:()=>void}) => {
+  
   return (
     <div className=" flex  justify-between px-12 py-7  mx-auto">
       <div>
@@ -22,7 +24,7 @@ const Top = () => {
           startIcon={<PlusIcon size="md" />}
           className="flex items-center gap-5 text-2xl  "
           text="Add Content"
-          onClick={() => console.log("content")}
+          onClick={onAddContentClick}
         />
       </div>
     </div>

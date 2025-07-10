@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
+import { BACKEND_URL } from "../config/config";
+import axios from "axios";
 
 const Signin = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!emailId || !password) return alert("All fields required");
+    const res = await axios.post(
+      BACKEND_URL + "/api/v1/signin",
+      { emailId, password },
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(res?.data);
 
     alert("Login successful!");
     navigate("/");
