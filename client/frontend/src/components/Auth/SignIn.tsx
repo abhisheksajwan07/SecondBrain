@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 
 const Signin = () => {
-  const [email, setEmail] = useState("");
+  const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (!email || !password) return alert("All fields required");
+    if (!emailId || !password) return alert("All fields required");
 
     alert("Login successful!");
     navigate("/");
@@ -21,8 +21,8 @@ const Signin = () => {
           type="email"
           placeholder="Email"
           className="w-full text-xl border px-4 py-2 rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={emailId}
+          onChange={(e) => setEmailId(e.target.value)}
         />
         <input
           type="password"
