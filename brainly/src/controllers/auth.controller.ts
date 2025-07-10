@@ -7,18 +7,26 @@ export const signupUser = async (
 ): Promise<void> => {
   try {
     // console.log("BODY:", req.body);
-    const { username, password } = req.body;
-    const user = new User({ username, password });
+    const { emailId, password } = req.body;
+    console.log("body", req.body);
+    const user = new User({ emailId, password });
     const savedUser = await user.save();
     const token = await savedUser.getJWT();
-    res.status(201).json({
-      message: "user signed up",
-      token,
-      user: {
-        id: savedUser._id,
-        username: savedUser.username,
-      },
-    });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production", // true in prod
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+      })
+      .status(201)
+      .json({
+        message: "user signed up",
+        user: {
+          id: savedUser._id,
+          emailId: savedUser.emailId,
+        },
+      });
   } catch (err: unknown) {
     if (err instanceof Error) {
       res.status(411).json({ message: err.message });
@@ -38,9 +46,9 @@ export const signInUser = async (
     // console.log("BODY TYPE:", typeof req.body);
     // console.log("BODY RAW:", req.body);
 
-    const { username, password } = req.body;
+    const { emailId, password } = req.body;
 
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ emailId });
     if (!existingUser) {
       res.status(403).json({
         message: "Incorrect Credentials",
@@ -55,14 +63,21 @@ export const signInUser = async (
 
     const token = await existingUser.getJWT();
 
-    res.json({
-      message: "User signed in successfully",
-      token,
-      user: {
-        id: existingUser._id,
-        username: existingUser.username,
-      },
-    });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 24 * 60 * 60 * 1000,
+      })
+      .status(200)
+      .json({
+        message: "User signed in successfully",
+        user: {
+          id: existingUser._id,
+          emailId: existingUser.emailId,
+        },
+      });
   } catch (err: unknown) {
     if (err instanceof Error) {
       res.status(411).json({ message: err.message });

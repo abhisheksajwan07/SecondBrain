@@ -79,7 +79,7 @@ export const getShareContent = async (
       return;
     }
     res.status(200).json({
-      username: user?.username,
+      username: user?.emailId,
       content,
     });
   } catch (error) {

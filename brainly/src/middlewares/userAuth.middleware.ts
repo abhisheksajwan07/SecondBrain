@@ -14,10 +14,12 @@ export const userMiddleware = async (
   next: NextFunction
 ) => {
   try {
-    const header = req.headers["authorization"];
-    
-    
-    const decoded = jwt.verify(header as string, process.env.JWT_SECRET!) as JwtPayload;
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
     const user = await User.findById(decoded._id);
     if (!user) {
       res.status(404).json({ message: "User not found" });
