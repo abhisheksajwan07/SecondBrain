@@ -3,7 +3,10 @@ const contentSchema = new Schema(
   {
     title: String,
     link: String,
-    tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
+    tags: {
+      type: [String],
+      default: [],
+    },
     type: {
       type: String,
       enum: ["youtube", "twitter", "document", "link", "other"], // ✅ enum added

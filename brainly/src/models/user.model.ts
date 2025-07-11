@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 interface Iuser extends Document {
   emailId: string;
+  username: string; // Adjusted to match schema and avoid type errors
   password: string;
   getJWT(): Promise<string>;
   validatePassword(password: string): Promise<boolean>;
@@ -10,6 +11,11 @@ interface Iuser extends Document {
 const userSchema = new Schema<Iuser>(
   {
     emailId: { type: String, unique: true },
+    username: {
+      type: String,
+      required: true,
+    },
+
     password: String,
   },
   { timestamps: true }
@@ -35,7 +41,7 @@ userSchema.methods.validatePassword = async function (
 };
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password as string, 10);
   }
   next();
 });

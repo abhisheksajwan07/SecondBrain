@@ -8,7 +8,7 @@ export const createContent = async (
   res: Response
 ): Promise<void> => {
   try {
-    console.log("body:",req.body);
+    console.log("body:", req.body);
     const { title, link, type } = req.body;
     const userId = req.user?._id;
     const newContent = await Content.create({
@@ -51,9 +51,10 @@ export const getContent = async (
     const userId = req.user?._id;
     const content = await Content.find({ userId }).populate(
       "userId",
-      "username"
+      "username",
+      "emailId"
     );
-    res.json({content});
+    res.json({ content });
   } catch (err) {
     if (err instanceof Error) {
       res.status(500).json({ message: err.message });
@@ -74,8 +75,8 @@ export const deleteContent = async (
     });
 
     if (!deleteContent) {
-       res.status(403).json({ message: "Not allowed or content not found" });
-       return;
+      res.status(403).json({ message: "Not allowed or content not found" });
+      return;
     }
 
     res.json({
@@ -86,5 +87,3 @@ export const deleteContent = async (
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
