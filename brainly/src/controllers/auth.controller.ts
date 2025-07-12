@@ -86,3 +86,13 @@ export const signInUser = async (
     }
   }
 };
+
+export const logoutUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+  });
+  res.send();
+};

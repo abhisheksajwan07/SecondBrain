@@ -12,7 +12,7 @@ export const userMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const token = req.cookies?.token;
     if (!token) {
@@ -22,7 +22,8 @@ export const userMiddleware = async (
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
     const user = await User.findById(decoded._id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: "User not found" });
+      return;
     }
     req.user = user;
     next();
