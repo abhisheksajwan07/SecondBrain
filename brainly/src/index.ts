@@ -23,7 +23,7 @@ app.use(
   })
 );
 app.use("/api/v1", authRoutes);
-app.use("api/v1", profileRoutes);
+app.use("/api/v1", profileRoutes);
 app.use("/api/v1", contentRoutes);
 app.use("/api/v1", shareRoutes);
 const startServer = async () => {

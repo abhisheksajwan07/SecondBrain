@@ -4,7 +4,11 @@ export const getProfile = async (
   res: Response
 ): Promise<void> => {
   try {
+    // console.log("➡️  Hit /profile route"); 
+    
+    
     const user = req.user;
+    // console.log("🔐 User from middleware:", user); 
     if (!user) {
       res.status(401).json({ message: "Not authorized" });
       return;
