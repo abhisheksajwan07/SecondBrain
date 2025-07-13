@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import { BACKEND_URL } from "../config/config";
@@ -11,18 +11,35 @@ const Signin = () => {
 
   const handleLogin = async () => {
     if (!emailId || !password) return alert("All fields required");
-    const res = await axios.post(
-      BACKEND_URL + "/api/v1/signin",
-      { emailId, password },
-      {
-        withCredentials: true,
-      }
-    );
-    console.log(res?.data);
+    try {
+      const res = await axios.post(
+        BACKEND_URL + "/api/v1/signin",
+        { emailId, password },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res?.data);
 
-    alert("Login successful!");
-    navigate("/");
+      alert("Login successful!");
+      navigate("/");
+    } catch (err) {
+      console.error("Signin failed", err);
+    }
   };
+  const checkAuth = async () => {
+    try {
+      await axios.get(`${BACKEND_URL}/api/v1/profile`, {
+        withCredentials: true,
+      });
+      navigate("/"); // Already logged in -> go to home
+    } catch (err) {
+      console.error("err message :", err);
+    }
+  };
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <AuthLayout>

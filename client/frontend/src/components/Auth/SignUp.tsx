@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthLayout from "./AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config/config";
@@ -23,16 +23,23 @@ const SignUp = () => {
 
       alert("SignUp successful");
       navigate("/");
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        console.error(err);
-        alert(err.response?.data?.message || "Something went wrong!");
-      } else {
-        console.error(err);
-        alert("Something went wrong!");
-      }
+    } catch (err) {
+      console.error("SignUp failed", err);
     }
   };
+  const checkAuth = async () => {
+    try {
+      await axios.get(`${BACKEND_URL}/api/v1/profile`, {
+        withCredentials: true,
+      });
+      navigate("/"); // Already logged in -> go to home
+    } catch (err) {
+      console.error("err message :", err);
+    }
+  };
+  useEffect(() => {
+    checkAuth();
+  }, []);
   return (
     <AuthLayout>
       <div className="space-y-4">
