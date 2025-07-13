@@ -13,7 +13,6 @@ const userSchema = new Schema<Iuser>(
     emailId: { type: String, unique: true },
     username: {
       type: String,
-      
     },
 
     password: String,

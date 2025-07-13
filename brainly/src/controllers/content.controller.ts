@@ -51,8 +51,7 @@ export const getContent = async (
     const userId = req.user?._id;
     const content = await Content.find({ userId }).populate(
       "userId",
-      "username",
-      "emailId"
+      "username emailId"
     );
     res.json({ content });
   } catch (err) {
