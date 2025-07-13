@@ -29,6 +29,7 @@ const SignUp = () => {
   };
   const checkAuth = async () => {
     try {
+      console.log("🔍 Checking profile auth...");
       await axios.get(`${BACKEND_URL}/api/v1/profile`, {
         withCredentials: true,
       });

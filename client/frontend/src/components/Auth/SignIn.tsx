@@ -27,17 +27,18 @@ const Signin = () => {
       console.error("Signin failed", err);
     }
   };
-  const checkAuth = async () => {
-    try {
-      await axios.get(`${BACKEND_URL}/api/v1/profile`, {
-        withCredentials: true,
-      });
-      navigate("/"); // Already logged in -> go to home
-    } catch (err) {
-      console.error("err message :", err);
-    }
-  };
+
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await axios.get(BACKEND_URL + "/api/v1/profile", {
+          withCredentials: true,
+        });
+        navigate("/"); // Already logged in -> go to home
+      } catch (err) {
+        console.error("err message :", err);
+      }
+    };
     checkAuth();
   }, []);
 

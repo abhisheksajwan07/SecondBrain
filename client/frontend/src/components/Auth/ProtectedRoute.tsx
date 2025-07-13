@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config/config";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
-export const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+export const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const checkAuth = async () => {
     try {
