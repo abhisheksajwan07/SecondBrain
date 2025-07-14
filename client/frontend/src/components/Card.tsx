@@ -1,6 +1,8 @@
 import ReactPlayer from "react-player";
+import { MdDelete } from "react-icons/md";
 import { ShareIcon } from "./icons/ShareIcon";
 import { useEffect } from "react";
+import { FaYoutube, FaTwitter, FaRegFileAlt } from "react-icons/fa";
 
 declare global {
   interface Window {
@@ -15,18 +17,26 @@ interface CardProps {
 }
 
 export const Card = ({ title, link, type }: CardProps) => {
+  const getIconByType = (type: string) => {
+    switch (type) {
+      case "youtube":
+        return <FaYoutube className="text-red-500 text-xl" />;
+      case "twitter":
+        return <FaTwitter className="text-blue-400 text-xl" />;
+      default:
+        return <FaRegFileAlt className="text-gray-400 text-xl" />;
+    }
+  };
   useEffect(() => {
-  if  (type==="twitter" && window.twttr && window.twttr.widgets) {
-    window.twttr.widgets.load();
-  }
-}, [link,type]);
+    if (type === "twitter" && window.twttr && window.twttr.widgets) {
+      window.twttr.widgets.load();
+    }
+  }, [link, type]);
   return (
     <div className="p-5 bg-white rounded-xl border border-gray-200 shadow-md max-w-lg w-full">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center text-lg font-medium text-gray-800">
-          <div className="text-gray-500 pr-2">
-            <ShareIcon />
-          </div>
+          <div className="text-gray-500 pr-4">{getIconByType(type)}</div>
           {title}
         </div>
         <div className="flex items-center space-x-3 text-gray-500">
@@ -35,13 +45,13 @@ export const Card = ({ title, link, type }: CardProps) => {
               <ShareIcon />
             </a>
           </div>
-          <div className="text-gray-500">
-            <ShareIcon />
+          <div className="text-gray-500 cursor-pointer">
+            <MdDelete className="text-2xl" />
           </div>
         </div>
       </div>
 
-      <div className="rounded-md flex justify-center overflow-hidden max-h-[50vh] ">
+      <div className="rounded-md flex justify-center overflow-hidden max-h-[80vh] ">
         {type === "youtube" && (
           <ReactPlayer
             src={link.replace("watch", "embed").replace("?v=", "/")}
