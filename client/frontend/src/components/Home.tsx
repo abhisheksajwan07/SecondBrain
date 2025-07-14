@@ -9,7 +9,7 @@ import axios from "axios";
 type CardType = {
   title: string;
   link: string;
-  type:  "youtube" | "twitter" | "document" | "link" | "other";
+  type: "youtube" | "twitter" | "document" | "link" | "other";
 };
 const Home = () => {
   const [cards, setCards] = useState<CardType[]>([]);
@@ -28,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     fetchContent();
   }, []);
-  const handleContent = async (newCard: CardType) => {
+  const handleContent = async (newCard: CardType): Promise<void> => {
     try {
       const res = await axios.post(BACKEND_URL + "/api/v1/content", newCard, {
         withCredentials: true,

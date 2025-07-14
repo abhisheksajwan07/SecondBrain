@@ -5,10 +5,14 @@ import { IoMdClose } from "react-icons/io";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (newCard: { title: string; link: string; type: string }) => void;
+  onSubmit: (newCard: {
+    title: string;
+    link: string;
+    type: "youtube" | "link" | "twitter" | "document" | "other";
+  }) => void;
 }
 
-export function CreateContentModal({ isOpen, onClose,onSubmit }: ModalProps) {
+export function CreateContentModal({ isOpen, onClose, onSubmit }: ModalProps) {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [type, setType] = useState("youtube");
@@ -35,12 +39,14 @@ export function CreateContentModal({ isOpen, onClose,onSubmit }: ModalProps) {
           <input
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
-            type={title}
+            type="text"
+            value={title}
             className="px-4 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-purple-400"
           />
           <input
             placeholder="Link"
-            type={link}
+            value={link}
+            type="text"
             onChange={(e) => setLink(e.target.value)}
             className="px-4 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-purple-400"
           />
@@ -59,8 +65,8 @@ export function CreateContentModal({ isOpen, onClose,onSubmit }: ModalProps) {
           <Button
             variant="primary"
             size="lg"
-            onClick={()=>{
-              const newCard={title,link,type}
+            onClick={() => {
+              const newCard = { title, link, type };
               onSubmit(newCard);
             }}
             text="  Add"
