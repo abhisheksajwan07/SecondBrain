@@ -16,7 +16,8 @@ export const signupUser = async (
       .cookie("token", token, {
         httpOnly: true,
         sameSite: "strict",
-        secure: process.env.NODE_ENV === "production", // true in prod
+        secure: true,
+        path: "/",
         maxAge: 24 * 60 * 60 * 1000, // 1 day
       })
       .status(201)
@@ -91,8 +92,16 @@ export const logoutUser = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
-  });
-  res.send();
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+    });
+
+    res.status(200).json({ message: "Logout successful" });
+  } catch (err) {
+    console.error("error:", err);
+  }
 };
