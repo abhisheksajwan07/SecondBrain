@@ -10,12 +10,12 @@ interface Iuser extends Document {
 }
 const userSchema = new Schema<Iuser>(
   {
-    emailId: { type: String, unique: true },
+    emailId: { type: String, unique: true, required: true },
     username: {
       type: String,
     },
 
-    password: String,
+    password: { type: String, required: true },
   },
   { timestamps: true }
 );
