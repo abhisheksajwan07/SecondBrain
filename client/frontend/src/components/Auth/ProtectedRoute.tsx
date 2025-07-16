@@ -19,7 +19,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactElement }) =
     checkAuth();
   }, []);
   if (isAuthenticated === null)
-    return <div className="flex justify-center items-center">Loading...</div>;
+    return <div className="flex justify-center items center tex-3xl items-center">Loading...</div>;
   if (isAuthenticated === false) return <Navigate to="/signup" replace />;
   return children;
 };

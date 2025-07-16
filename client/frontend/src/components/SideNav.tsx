@@ -1,6 +1,7 @@
 import { LuBrain } from "react-icons/lu";
 import { FiLogOut } from "react-icons/fi";
-
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import { FaXTwitter } from "react-icons/fa6";
 import { LiaVideoSolid } from "react-icons/lia";
 
@@ -8,10 +9,20 @@ import { TiDocumentText } from "react-icons/ti";
 import { FaLink } from "react-icons/fa6";
 import { FaHashtag } from "react-icons/fa6";
 import { Button } from "./ui/button";
+import { BACKEND_URL } from "./config/config";
+import axios from "axios";
 const SideNav = () => {
-  
+  const navigate=useNavigate();
+  const handleLogout = async () => {
+    try {
+      await axios.post(BACKEND_URL + "/api/v1/logout", { withCredentials: true });
+      Cookies.remove("token");
+      navigate("/signin");
+    } catch (err) {}
+  };
+
   return (
-    <div className="w-[15%] h-full border-r-4 relative  p-5">
+    <div className="w-[15%] h-full border-r-4 relative bg-slate-100 p-5">
       <h1 className="text-center text-3xl  flex items-center justify-center gap-2">
         <LuBrain className="w-10 h-10 text-blue-500" />
         <span>Second Brain</span>
@@ -65,10 +76,7 @@ const SideNav = () => {
           startIcon={<FiLogOut className="w-6 h-6" />}
           className="flex items-center justify-center gap-3 text-xl hover:text-red-500"
           text="Logout"
-          onClick={() => {
-            console.log("Logging out...");
-            // yahan logout logic add karo, jaise localStorage.clear() or navigate("/login")
-          }}
+          onClick={handleLogout}
         />
       </div>
     </div>
