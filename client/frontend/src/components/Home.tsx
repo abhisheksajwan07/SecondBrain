@@ -39,11 +39,10 @@ const Home = () => {
   //   }
   // };
   const [showModal, setShowModal] = useState(false);
-  const { fetchContent, addContent, cards } = useContentStore((state) => ({
-    fetchContent: state.fetchContent,
-    addContent: state.addContent,
-    cards: state.cards,
-  }));
+  const cards = useContentStore((state) => state.cards);
+  const fetchContent = useContentStore((state) => state.fetchContent);
+  const addContent = useContentStore((state) => state.addContent);
+
   useEffect(() => {
     fetchContent();
   }, [fetchContent]);
