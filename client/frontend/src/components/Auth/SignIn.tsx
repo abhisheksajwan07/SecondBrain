@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 
@@ -7,7 +7,7 @@ import { useAuthStore } from "../../store/auth.store";
 const Signin = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  
   const signin = useAuthStore((state) => state.signin);
   const loading = useAuthStore((state) => state.loading);
   const error = useAuthStore((state) => state.error);
@@ -15,18 +15,18 @@ const Signin = () => {
   const handleLogin = async () => {
     if (!emailId || !password) return alert("All fields required");
     try {
-      await signin({
+      const logged = await signin({
         emailId,
         password,
       });
-      alert("Login successful!");
-      navigate("/");
+      // if (logged) {
+      //   return navigate("/");
+      // }
     } catch (err) {
+      alert("Invalid email or password!");
       console.error("Signin failed", err);
     }
   };
-
-  
 
   return (
     <AuthLayout>

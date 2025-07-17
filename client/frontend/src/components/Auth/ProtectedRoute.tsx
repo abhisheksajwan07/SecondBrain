@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { BACKEND_URL } from "../config/config";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { useAuthStore } from "../../store/auth.store";
 
 export const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const checkAuth = async () => {
-    try {
-      await axios.get(`${BACKEND_URL}/api/v1/profile`, {
-        withCredentials: true,
-      });
-      setIsAuthenticated(true);
-    } catch {
-      setIsAuthenticated(false);
-    }
-  };
+  const fetchUser = useAuthStore((state)=>state.fetchUser)
+  const isAuthenticated = useAuthStore((state)=>state.isAuthenticated)
+  
   useEffect(() => {
-    checkAuth();
+    fetchUser();
   }, []);
   if (isAuthenticated === null)
-    return <div className="flex justify-center items center tex-3xl items-center">Loading...</div>;
+    return <div className="flex justify-center  text-3xl ">Loading...</div>;
   if (isAuthenticated === false) return <Navigate to="/signup" replace />;
   return children;
 };

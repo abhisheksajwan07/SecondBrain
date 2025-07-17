@@ -7,15 +7,14 @@ import { useAuthStore } from "./store/auth.store";
 import { useEffect } from "react";
 
 const App = () => {
-  const { fetchUser, loading, isAuthenticated } = useAuthStore();
-  const navigate = useNavigate();
+  const fetchUser = useAuthStore((state) => state.fetchUser);
+  // const loading = useAuthStore((s) => s.loading);
   useEffect(() => {
     fetchUser();
   }, []);
+  // if (loading) return <div className="text-2xl text-center">Loading...</div>;
   return (
     <Routes>
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
       <Route
         path="/"
         element={
@@ -24,6 +23,8 @@ const App = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
     </Routes>
   );
 };

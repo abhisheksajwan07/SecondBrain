@@ -34,7 +34,7 @@ export const useAuthStore = create<AuthState>()(
       signup: async ({ emailId, name, password }) => {
         set({ loading: true, error: null });
         try {
-          const res = await  axios.post(
+          const res = await axios.post(
             `${BACKEND_URL}/api/v1/signup`,
             {
               emailId,
@@ -59,7 +59,7 @@ export const useAuthStore = create<AuthState>()(
         set({ loading: true, error: null });
         try {
           const res = await axios.post(
-            `${BACKEND_URL}/api/v1/login`,
+            `${BACKEND_URL}/api/v1/signin`,
             { emailId, password },
             { withCredentials: true }
           );

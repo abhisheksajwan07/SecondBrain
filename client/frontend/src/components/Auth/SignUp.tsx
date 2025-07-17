@@ -15,7 +15,7 @@ const SignUp = () => {
       if (!emailId || !password) return alert("All feilds are required");
       await signup({emailId,password,name:"test-user"});
       alert("Sign Up succesful")
-      navigate("/")
+      return navigate("/")
 
       
     } catch (err) {

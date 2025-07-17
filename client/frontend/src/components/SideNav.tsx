@@ -9,16 +9,14 @@ import { TiDocumentText } from "react-icons/ti";
 import { FaLink } from "react-icons/fa6";
 import { FaHashtag } from "react-icons/fa6";
 import { Button } from "./ui/button";
-import { BACKEND_URL } from "./config/config";
-import axios from "axios";
+
+import { useAuthStore } from "../store/auth.store";
 const SideNav = () => {
-  const navigate=useNavigate();
+  const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
   const handleLogout = async () => {
-    try {
-      await axios.post(BACKEND_URL + "/api/v1/logout", { withCredentials: true });
-      Cookies.remove("token");
-      navigate("/signin");
-    } catch (err) {}
+    await logout();
+    navigate("/signin");
   };
 
   return (

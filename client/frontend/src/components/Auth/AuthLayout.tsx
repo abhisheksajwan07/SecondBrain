@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAuthStore } from "../../store/auth.store";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const fetchUser = useAuthStore((s) => s.fetchUser);
@@ -10,10 +10,10 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     fetchUser();
   }, []);
   useEffect(() => {
-    if (isAuthenticated) {
+    if (!loading && isAuthenticated) {
       navigate("/"); // Already logged in
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, loading]);
   if (loading) return <div className="text-2xl text-center">Loading...</div>;
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-300 px-4">
