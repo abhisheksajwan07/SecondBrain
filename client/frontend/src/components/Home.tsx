@@ -12,21 +12,21 @@ type CardType = {
   type: "youtube" | "twitter" | "document" | "link" | "other";
 };
 const Home = () => {
-  const [cards, setCards] = useState<CardType[]>([]);
+  // const [cards, setCards] = useState<CardType[]>([]);
   const [showModal, setShowModal] = useState(false);
   //content fetch
-  const fetchContent = async () => {
-    try {
-      const res = await axios.get(BACKEND_URL + "/api/v1/getContent", {
-        withCredentials: true,
-      });
-      setCards(res.data.content);
-    } catch (err) {
-      console.error("error", err);
-    }
-  };
+  // const fetchContent = async () => {
+  //   try {
+  //     const res = await axios.get(BACKEND_URL + "/api/v1/getContent", {
+  //       withCredentials: true,
+  //     });
+  //     setCards(res.data.content);
+  //   } catch (err) {
+  //     console.error("error", err);
+  //   }
+  // };
   useEffect(() => {
-    fetchContent();
+   
   }, []);
   const handleContent = async (newCard: CardType): Promise<void> => {
     try {
