@@ -4,8 +4,8 @@ import { CreateContentModal } from "./CreateContentModal";
 
 import SideNav from "./SideNav";
 import Top from "./Top";
-import { BACKEND_URL } from "./config/config";
-import axios from "axios";
+
+import { useContentStore } from "../store/content.store";
 type CardType = {
   title: string;
   link: string;
@@ -13,7 +13,6 @@ type CardType = {
 };
 const Home = () => {
   // const [cards, setCards] = useState<CardType[]>([]);
-  const [showModal, setShowModal] = useState(false);
   //content fetch
   // const fetchContent = async () => {
   //   try {
@@ -25,21 +24,33 @@ const Home = () => {
   //     console.error("error", err);
   //   }
   // };
-  useEffect(() => {
-   
-  }, []);
-  const handleContent = async (newCard: CardType): Promise<void> => {
-    try {
-      const res = await axios.post(BACKEND_URL + "/api/v1/content", newCard, {
-        withCredentials: true,
-      });
 
-      setCards((prev) => [...prev, res.data.content]);
-      fetchContent();
-      setShowModal(false);
-    } catch (err) {
-      console.error("error", err);
-    }
+  // const handleContent = async (newCard: CardType): Promise<void> => {
+  //   try {
+  //     const res = await axios.post(BACKEND_URL + "/api/v1/content", newCard, {
+  //       withCredentials: true,
+  //     });
+
+  //     setCards((prev) => [...prev, res.data.content]);
+  //     fetchContent();
+  //     setShowModal(false);
+  //   } catch (err) {
+  //     console.error("error", err);
+  //   }
+  // };
+  const [showModal, setShowModal] = useState(false);
+  const { fetchContent, addContent, cards } = useContentStore((state) => ({
+    fetchContent: state.fetchContent,
+    addContent: state.addContent,
+    cards: state.cards,
+  }));
+  useEffect(() => {
+    fetchContent();
+  }, [fetchContent]);
+  const handleContent = async (newCard: CardType) => {
+    await addContent(newCard);
+    fetchContent();
+    setShowModal(false);
   };
   return (
     <div className="flex overflow-hidden h-screen">

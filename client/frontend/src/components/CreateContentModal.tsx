@@ -2,6 +2,11 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { IoMdClose } from "react-icons/io";
 
+type CardType = {
+  title: string;
+  link: string;
+  type: "youtube" | "twitter" | "document" | "link" | "other";
+};
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,9 +18,12 @@ interface ModalProps {
 }
 
 export function CreateContentModal({ isOpen, onClose, onSubmit }: ModalProps) {
-  const [title, setTitle] = useState("");
-  const [link, setLink] = useState("");
-  const [type, setType] = useState("youtube");
+  const [title, setTitle] = useState<string>("");
+  const [link, setLink] = useState<string>("");
+  const [type, setType] = useState<
+    "youtube" | "link" | "twitter" | "document" | "other"
+  >("youtube");
+
   if (!isOpen) return null;
 
   return (
@@ -52,7 +60,7 @@ export function CreateContentModal({ isOpen, onClose, onSubmit }: ModalProps) {
           />
           <select
             value={type}
-            onChange={(e) => setType(e.target.value)}
+            onChange={(e) => setType(e.target.value as CardType["type"])}
             className="px-4 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-purple-400"
           >
             <option value="youtube">YouTube</option>

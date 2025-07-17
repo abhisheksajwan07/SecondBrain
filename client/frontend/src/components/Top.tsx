@@ -1,9 +1,7 @@
-
 import { PlusIcon } from "./icons/PlusIcon";
 import { ShareIcon } from "./icons/ShareIcon";
 import { Button } from "./ui/button";
-const Top = ({onAddContentClick}:{onAddContentClick:()=>void}) => {
-  
+const Top = ({ onAddContentClick }: { onAddContentClick: () => void }) => {
   return (
     <div className=" flex  justify-between px-12 py-7  mx-auto">
       <div>

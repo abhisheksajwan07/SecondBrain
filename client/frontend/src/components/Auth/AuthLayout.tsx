@@ -13,7 +13,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     if (!loading && isAuthenticated) {
       navigate("/"); // Already logged in
     }
-  }, [isAuthenticated, loading]);
+  }, [isAuthenticated, loading, navigate]);
   if (loading) return <div className="text-2xl text-center">Loading...</div>;
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-300 px-4">
