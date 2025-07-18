@@ -3,7 +3,12 @@ import { Button } from "./ui/button";
 import { IoMdClose } from "react-icons/io";
 
 type CardType = {
-  
+  id: string;
+  title: string;
+  link: string;
+  type: "youtube" | "twitter" | "document" | "link" | "other";
+};
+type NewCardInput = {
   title: string;
   link: string;
   type: "youtube" | "twitter" | "document" | "link" | "other";
@@ -11,11 +16,7 @@ type CardType = {
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (newCard: {
-    title: string;
-    link: string;
-    type: "youtube" | "link" | "twitter" | "document" | "other";
-  }) => void;
+  onSubmit: (newCard: NewCardInput) => void;
 }
 
 export function CreateContentModal({ isOpen, onClose, onSubmit }: ModalProps) {

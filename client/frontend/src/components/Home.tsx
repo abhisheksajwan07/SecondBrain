@@ -7,7 +7,12 @@ import Top from "./Top";
 
 import { useContentStore } from "../store/content.store";
 type CardType = {
-  _id: string;
+  id: string;
+  title: string;
+  link: string;
+  type: "youtube" | "twitter" | "document" | "link" | "other";
+};
+type NewCardInput = {
   title: string;
   link: string;
   type: "youtube" | "twitter" | "document" | "link" | "other";
@@ -22,10 +27,14 @@ const Home = () => {
   useEffect(() => {
     fetchContent();
   }, [fetchContent]);
-  const handleContent = async (newCard: CardType) => {
+  const handleContent = async (newCard: NewCardInput) => {
     await addContent(newCard);
     fetchContent();
     setShowModal(false);
+  };
+  const handleDelete = async (id: string) => {
+    await deleteContent(id);
+    fetchContent();
   };
   return (
     <div className="flex overflow-hidden h-screen">
@@ -35,12 +44,12 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
           {cards.map((card) => (
             <Card
-              key={card._id}
-              id={card._id}
+              key={card.id}
+              id={card.id}
               title={card.title}
               link={card.link}
               type={card.type}
-              onDelete={deleteContent}
+              onDelete={handleDelete}
             />
           ))}
         </div>

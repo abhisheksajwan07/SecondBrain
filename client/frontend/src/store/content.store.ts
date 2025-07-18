@@ -3,9 +3,14 @@ import { BACKEND_URL } from "../components/config/config";
 import axios from "axios";
 
 type CardType = {
-  id:string;
+  id: string;
   link: string;
   title: string;
+  type: "youtube" | "twitter" | "document" | "link" | "other";
+};
+type NewCardInput = {
+  title: string;
+  link: string;
   type: "youtube" | "twitter" | "document" | "link" | "other";
 };
 type ContentStore = {
@@ -13,7 +18,7 @@ type ContentStore = {
   loading: boolean;
   error: null | string;
   fetchContent: () => Promise<void>;
-  addContent: (newCard: CardType) => Promise<void>;
+  addContent: (newCard: NewCardInput) => Promise<void>;
   deleteContent: (id: string) => Promise<void>;
 };
 
@@ -26,19 +31,27 @@ export const useContentStore = create<ContentStore>((set) => ({
       const res = await axios.get(`${BACKEND_URL}/api/v1/getContent`, {
         withCredentials: true,
       });
-      set({ cards: res.data.content, loading: false, error: null });
+      const mappedContent = res.data.content.map((item: any) => ({
+        ...item,
+        id: item._id,
+      }));
+      set({ cards: mappedContent, loading: false, error: null });
     } catch (err) {
       console.error("Error fetching content:", err);
     }
   },
-  addContent: async (newCard) => {
+  addContent: async (newCard:{title: string; link: string; type: CardType["type"] }) => {
     set({ loading: true, error: null });
     try {
       const res = await axios.post(`${BACKEND_URL}/api/v1/content`, newCard, {
         withCredentials: true,
       });
+      const mapped= ({
+        ...res.data.content,
+        id:res.data.content._id
+      })
       set((state) => ({
-        cards: [...state.cards, res.data.content],
+        cards: [...state.cards, mapped],
         loading: false,
         error: null,
       }));
@@ -50,7 +63,7 @@ export const useContentStore = create<ContentStore>((set) => ({
   deleteContent: async (id) => {
     set({ loading: true, error: null });
     try {
-      await axios.delete(`${BACKEND_URL}/api/v1/delete/${id}`, {
+      await axios.delete(`${BACKEND_URL}/api/v1/content/${id}`, {
         withCredentials: true,
       });
       set((state) => ({
