@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { IoMdClose } from "react-icons/io";
 
 type CardType = {
+  
   title: string;
   link: string;
   type: "youtube" | "twitter" | "document" | "link" | "other";

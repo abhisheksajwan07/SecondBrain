@@ -11,12 +11,14 @@ declare global {
 }
 
 interface CardProps {
+  id: string;
   title: string;
   link: string;
   type: string;
+  onDelete: (id: string) => void;
 }
 
-export const Card = ({ title, link, type }: CardProps) => {
+export const Card = ({ title, link, type, id, onDelete }: CardProps) => {
   const getIconByType = (type: string) => {
     switch (type) {
       case "youtube":
@@ -46,7 +48,7 @@ export const Card = ({ title, link, type }: CardProps) => {
             </a>
           </div>
           <div className="text-gray-500 cursor-pointer">
-            <MdDelete className="text-2xl" />
+            <MdDelete className="text-2xl" onClick={()=>onDelete(id)} />
           </div>
         </div>
       </div>
