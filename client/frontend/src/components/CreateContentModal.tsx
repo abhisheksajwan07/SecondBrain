@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { IoMdClose } from "react-icons/io";
 
@@ -26,8 +26,14 @@ export function CreateContentModal({ isOpen, onClose, onSubmit }: ModalProps) {
     "youtube" | "link" | "twitter" | "document" | "other"
   >("youtube");
 
+  useEffect(() => {
+    if (isOpen) {
+      setTitle("");
+      setLink("");
+      setType("youtube");
+    }
+  }, [isOpen]);
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-50 bg-black/60 flex justify-center items-center px-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 relative">
