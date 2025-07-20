@@ -53,7 +53,7 @@ export const getContent = async (
       "userId",
       "username emailId"
     );
-    console.log(content);
+    
     res.json({ content });
   } catch (err) {
     if (err instanceof Error) {
